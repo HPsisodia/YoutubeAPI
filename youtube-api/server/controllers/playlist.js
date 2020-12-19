@@ -14,16 +14,17 @@ exports.playlist = async(req,res) => {
     const playlistId = req.body.PlayListLink
     const id = playlistId.split("=");
     try {
+        const apikey = "";
         const playlistData = await axios({
             method: "get",
             url:
-                `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&id=${id[1]}&maxResults=50&key=AIzaSyCowv6rSWR73vKv-bX0Q9TqSwFL4tElUJA`
+                `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet&id=${id[1]}&maxResults=50&key=${apikey}`
         });
 
         const playlistItemData = await axios({
             method: "get",
             url:
-                `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${id[1]}&key=AIzaSyCowv6rSWR73vKv-bX0Q9TqSwFL4tElUJA`
+                `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${id[1]}&key=${apikey}`
         });
 
         const items = playlistItemData.data.items;
@@ -45,7 +46,7 @@ exports.playlist = async(req,res) => {
                 const data = await axios({
                     method: "get",
                     url:
-                        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=contentDetails&id=${videoId}&key=AIzaSyCowv6rSWR73vKv-bX0Q9TqSwFL4tElUJA`
+                        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&part=contentDetails&id=${videoId}&key=${apikey}`
                 });
 
                 const videoDetails = data.data;
